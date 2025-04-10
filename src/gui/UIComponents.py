@@ -5,6 +5,13 @@ from PIL import Image
 
 
 class UIComponents():
+
+    def __init__(self):
+        style_treeview = ttk.Style()
+        style_treeview.theme_use('vista')
+        style_treeview.configure('Treeview', rowheight=35, fieldbackground='#261c20', foreground='black', font='Arial 13')
+        style_treeview.map('Treeview', background=[('selected', '#241e11')])           # Altura das linhas
+        pass
     
     @staticmethod
     def labels(window, text, posx, posy, width=0.1, height=0.1, color='black', background='white', position=CENTER, photo=None, size=21, font='Arial'):
@@ -115,8 +122,10 @@ class UIComponents():
         )
         scrollbar.pack(side=position, fill=x_or_y)
         return scrollbar
-
+        
     def treeview(self, locate, informations, max_width=0):
+
+
         # scrollbar ---------------------------------------------------
         yscrollbar = self.scrollbar(locate, 'vertical', RIGHT, Y)
         xscrollbar = self.scrollbar(locate, 'horizontal', BOTTOM, X)
