@@ -17,10 +17,22 @@ class Interface(UIComponents):
 
     def pointsContainer(self):
         # container ===========================================================
-        main_container = self.frame(self.root, 0.01, 0.02, 0.4, 0.97, '#1b2e4d', '#b59b50', 2, 10, 'default')
-        button_container = self.frame(main_container, 0.04, 0.03, 0.92, 0.3, '#1b2e4d', '#b59b50', 2, 10, 'default')
+        main_container = self.frame(self.root, 0.01, 0.02, 0.4, 0.97, '#1b2e4d', '#ffff00', 2, 10, 'default')
+        button_container = self.frame(main_container, 0.04, 0.03, 0.92, 0.7, '#1b2e4d', '#ffff00', 2, 10, 'default')
+        search_container = self.frame(main_container, 0.04, 0.75, 0.92, 0.2, '#1b2e4d', '#1b2e4d', 2, 10, 'default')
 
-        pass
+        # labels =============================================================
+        points_label = self.labels(button_container, "Pontos:", 0.01, 0.02, 0.98, 0.09, '#ffff00', '#1b2e4d')
+        self.points = self.labels(button_container, "1", 0.01, 0.1, 0.98, 0.09, '#ffff00', '#1b2e4d', size=29)
+        level_click = self.labels(button_container, "1 ponto por click", 0.01, 0.8, 0.98, 0.09, '#ffff00', '#1b2e4d')
+
+        # entry ==============================================================
+        self.name_field = self.entry(search_container, 0.15, 0.19, 0.7, 0.3, type_entry='entry', position=CENTER, background="#233b63", border_color="#ffff00")
+
+        # buttons ============================================================
+        increment_button = self.button(button_container, '', 0.36, 0.34, 0.3, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#1b2e4d", photo=self.image('assets/pokebola.png', (120, 120))[0], type_btn='buttonPhoto')
+        search_button = self.button(search_container, 'Buscar', 0.16, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01")
+        random_button = self.button(search_container, 'Random', 0.51, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01")
 
     def pokedexContainer(self):
         # container ===========================================================
@@ -48,6 +60,15 @@ class Interface(UIComponents):
         self.pokemon_attack = self.labels(screen_container, "55", 0.475, 0.48, 0.15, 0.05, 'gray', '#f0f0f0', size=18)
         self.pokemon_defense = self.labels(screen_container, "40", 0.655, 0.48, 0.15, 0.05, 'gray', '#f0f0f0', size=18)
         self.pokemon_speed = self.labels(screen_container, "90", 0.825, 0.48, 0.15, 0.05, 'gray', '#f0f0f0', size=18)
+
+        # evolution ==============================================================
+        evolution_label = self.labels(screen_container, "Evolutions", 0.56, 0.55, 0.34, 0.05, 'black', '#f0f0f0')
+        self.first_evolution = self.labels(screen_container, "", 0.475, 0.62, 0.16, 0.3, '#f0f0f0', '#f0f0f0', photo=self.image('assets/pikachu.png', (60, 60))[0])
+        self.second_evolution = self.labels(screen_container, "", 0.655, 0.62, 0.16, 0.3, '#f0f0f0', '#f0f0f0', photo=self.image('assets/pikachu.png', (60, 60))[0])
+        self.third_evolution = self.labels(screen_container, "", 0.825, 0.62, 0.16, 0.3, '#f0f0f0', '#f0f0f0', photo=self.image('assets/pikachu.png', (60, 60))[0])
+        self.first_evolution_label = self.labels(screen_container, "Pikachu", 0.475, 0.9, 0.16, 0.08, 'black', '#f0f0f0', size=14)
+        self.second_evolution_label = self.labels(screen_container, "Raichu", 0.655, 0.9, 0.16, 0.08, 'black', '#f0f0f0', size=14)
+        self.third_evolution_label = self.labels(screen_container, "Raichu", 0.825, 0.9, 0.16, 0.08, 'black', '#f0f0f0', size=14)
 
         # treeview ==============================================================
         self.treeview = self.treeview(list_container, ["Name", "Number", "Type"])

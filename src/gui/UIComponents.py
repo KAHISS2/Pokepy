@@ -37,7 +37,7 @@ class UIComponents():
                 camp.set('')
             case 'entry':
                 camp = CTkEntry(
-                    window, fg_color='#FFFFFF', text_color='#000000', border_color=border_color,  font=CTkFont('Arial', font_size), placeholder_text=place_text,
+                    window, fg_color=background, text_color='#FFFFFF', border_color=border_color,  font=CTkFont('Arial', font_size), placeholder_text=place_text,
                     placeholder_text_color='#222222', justify=position, show=show
                 )
                 camp.place(relx=posx, rely=posy, relwidth=width, relheight=height)
@@ -59,12 +59,12 @@ class UIComponents():
             case 'normal':
                 btn = CTkButton(
                     window, text=text, font=CTkFont('Arial', 17, 'bold'), command=function, image=photo,
-                    fg_color=background, text_color=color, border_width=border, border_color='#b59b50', hover_color=hover_cursor,
+                    fg_color=background, text_color=color, border_width=border, border_color='#ffff00', hover_color=hover_cursor,
                     cursor='hand2'
                 )
                 btn.place(relx=posx, rely=posy, relwidth=width, relheight=height)
             case 'buttonPhoto':
-                btn = CTkButton(window, command=function, image=photo, fg_color='transparent', cursor='hand2', text='', hover_color=hover_cursor, corner_radius=0)
+                btn = CTkButton(window, command=function, image=photo, fg_color='transparent', cursor='hand2', text='', hover_color=hover_cursor, corner_radius=50)
                 btn.place(relx=posx, rely=posy, relwidth=width, relheight=height)
             case 'optionMenu':
                 btn = CTkOptionMenu(
