@@ -1,4 +1,5 @@
-from UIComponents import *
+from src.gui.UIComponents import *
+from src.services.clicker import Clicker
 from PIL import Image
 
 class Interface(UIComponents):
@@ -7,6 +8,7 @@ class Interface(UIComponents):
         self.root.title("Interface")
         self.root.geometry(f"{self.root.winfo_screenwidth()}x{self.root.winfo_screenheight()}+0+0")
         self.loadContents()
+        self.clicker = Clicker()
         super().__init__()
         self.root.mainloop()
 
@@ -25,12 +27,13 @@ class Interface(UIComponents):
         points_label = self.labels(button_container, "Pontos:", 0.01, 0.02, 0.98, 0.09, '#ffff00', '#1b2e4d')
         self.points = self.labels(button_container, "1", 0.01, 0.1, 0.98, 0.09, '#ffff00', '#1b2e4d', size=29)
         level_click = self.labels(button_container, "1 ponto por click", 0.01, 0.8, 0.98, 0.09, '#ffff00', '#1b2e4d')
+        meta = self.labels(button_container, "Proxima captura: 50", 0.01, 0.9, 0.98, 0.09, '#ffff00', '#1b2e4d')
 
         # entry ==============================================================
         self.name_field = self.entry(search_container, 0.15, 0.19, 0.7, 0.3, type_entry='entry', position=CENTER, background="#233b63", border_color="#ffff00")
 
         # buttons ============================================================
-        increment_button = self.button(button_container, '', 0.36, 0.34, 0.3, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#1b2e4d", photo=self.image('assets/pokebola.png', (120, 120))[0], type_btn='buttonPhoto')
+        increment_button = self.button(button_container, '', 0.36, 0.34, 0.3, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#1b2e4d", photo=self.image('assets/pokebola.png', (120, 120))[0], type_btn='buttonPhoto', function=lambda : self.clicker.increment(self.points))
         search_button = self.button(search_container, 'Buscar', 0.16, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01")
         random_button = self.button(search_container, 'Random', 0.51, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01")
 
