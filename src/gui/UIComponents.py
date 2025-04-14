@@ -259,3 +259,11 @@ class UIComponents():
         lineHigher.place(relx=posx, rely=posy, relwidth=0.9, relheight=0.1)
         lineHigher.create_line(1, 15, 1000, 15, fill='#3b321a', width=2)
         return lineHigher
+    
+    @staticmethod
+    def image(file, size):
+        try:
+            img = CTkImage(light_image=Image.open(file), dark_image=Image.open(file), size=size)
+        except FileNotFoundError:
+            img = CTkImage(light_image=Image.open('assets/corrupted.png'), dark_image=Image.open('assets/corrupted.png'), size=(76, 76))
+        return [img, file]
