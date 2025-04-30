@@ -66,10 +66,11 @@ class App(UIComponents):
         self.name_field = self.entry(search_container, 0.15, 0.19, 0.7, 0.3, type_entry='entry', position=CENTER, background="#233b63", border_color="#ffff00")
 
         # buttons ============================================================
-        increment_button = self.button(button_container, '', 0.36, 0.34, 0.3, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#1b2e4d", photo=self.image('assets/images/pokebola.png', (120, 120))[0], type_btn='buttonPhoto', function=lambda : self.clicker.increment(self.points))
+        increment_button = self.button(button_container, '', 0.36, 0.34, 0.3, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#1b2e4d", photo=self.image('assets/images/pokebola.png', (120, 120))[0], type_btn='buttonPhoto', function=lambda : [self.clicker.increment(self.points), self.sound.soundClick("assets/sounds/click2.wav")])
         search_button = self.button(
             search_container, 'Buscar', 0.16, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01",
             function=lambda: [
+                self.sound.soundClick("assets/sounds/click.wav"),
                 self.api.updateDisplay(
                     self.name_field.get(),
                     [
@@ -84,29 +85,33 @@ class App(UIComponents):
                         self.pokemon_hp,
                         self.pokemon_special_attack,
                         self.pokemon_special_defense,
+                        self.buy_button
                     ]
-                ),
-                self.sound.soundClick("assets/sounds/click.wav")
+                )
             ]
         )
         random_button = self.button(
             search_container, 'Random', 0.51, 0.55, 0.33, 0.3, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01", 
-            function=lambda: self.api.updateDisplay(
-                str(randint(1, 1000)),
-                [
-                    self.pokemon_image,
-                    self.pokemon_name,
-                    self.pokemon_height,
-                    self.pokemon_weight,
-                    self.pokemon_type,
-                    self.pokemon_attack,
-                    self.pokemon_defense,
-                    self.pokemon_speed,
-                    self.pokemon_hp,
-                    self.pokemon_special_attack,
-                    self.pokemon_special_defense,
-                ]
-            )
+            function=lambda: [
+                self.sound.soundClick("assets/sounds/click.wav"),
+                self.api.updateDisplay(
+                    str(randint(1, 1000)),
+                    [
+                        self.pokemon_image,
+                        self.pokemon_name,
+                        self.pokemon_height,
+                        self.pokemon_weight,
+                        self.pokemon_type,
+                        self.pokemon_attack,
+                        self.pokemon_defense,
+                        self.pokemon_speed,
+                        self.pokemon_hp,
+                        self.pokemon_special_attack,
+                        self.pokemon_special_defense,
+                        self.buy_button
+                    ]
+                )
+            ]
         )
         pause_button = self.button(
             main_container, '', 0.01, 0.92, 0.1, 0.06, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01", photo=self.image('assets/images/som_ativo.png', (30, 30))[0], type_btn='buttonPhoto',
@@ -139,19 +144,19 @@ class App(UIComponents):
         special_defense_label = self.labels(screen_container, "S/Defense", 0.82, 0.58, 0.15, 0.09, 'black', '#f0f0f0')
 
         # Changed labels ==============================================================
-        self.pokemon_name = self.labels(screen_container, "Pikachu Nº 0025", 0.535, 0.04, 0.38, 0.09, 'gray', '#f0f0f0')
-        self.pokemon_height = self.labels(screen_container, "0.4 m", 0.475, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_weight = self.labels(screen_container, "6.0 kg", 0.655, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_type = self.labels(screen_container, "Elétrico", 0.825, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_attack = self.labels(screen_container, "55", 0.475, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_defense = self.labels(screen_container, "40", 0.655, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_speed = self.labels(screen_container, "90", 0.825, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_hp = self.labels(screen_container, "35", 0.475, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_special_attack = self.labels(screen_container, "50", 0.655, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
-        self.pokemon_special_defense = self.labels(screen_container, "50", 0.825, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_name = self.labels(screen_container, "--------", 0.53, 0.04, 0.42, 0.09, 'gray', '#f0f0f0')
+        self.pokemon_height = self.labels(screen_container, "---- m", 0.475, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_weight = self.labels(screen_container, "---- kg", 0.655, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_type = self.labels(screen_container, "-----", 0.825, 0.29, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_attack = self.labels(screen_container, "---", 0.475, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_defense = self.labels(screen_container, "---", 0.655, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_speed = self.labels(screen_container, "---", 0.825, 0.48, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_hp = self.labels(screen_container, "---", 0.475, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_special_attack = self.labels(screen_container, "---", 0.655, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
+        self.pokemon_special_defense = self.labels(screen_container, "---", 0.825, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
 
         # buttons ==============================================================
-        self.buy_button = self.button(screen_container, "Comprar", 0.53, 0.85, 0.2, 0.1, background="#1b2e4d", color="#ffff00", hover_cursor="#8f8a01")
+        self.buy_button = self.button(screen_container, "Capturar por P$", 0.51, 0.78, 0.45, 0.16, background="#e04136", color="#fff", hover_cursor="#333", border_color="#a30000")
 
         # treeview ==============================================================
         self.treeview = self.treeview(list_container, ["Name", "Number", "Type"])

@@ -52,14 +52,14 @@ class UIComponents():
     @staticmethod
     def button(
             window, text, posx, posy,  width=None, height=None, function=None, type_btn='normal', order_list=None, photo=None, background='#917c3f', retur_variable=None, value='', hover_cursor='#c9b883',
-            border=2, color='#ffffff'
+            border=2, color='#ffffff', border_color='#ffff00'
     ):
         btn = None
         match type_btn:
             case 'normal':
                 btn = CTkButton(
                     window, text=text, font=CTkFont('Arial', 17, 'bold'), command=function, image=photo,
-                    fg_color=background, text_color=color, border_width=border, border_color='#ffff00', hover_color=hover_cursor,
+                    fg_color=background, text_color=color, border_width=border, border_color=border_color, hover_color=hover_cursor,
                     cursor='hand2'
                 )
                 btn.place(relx=posx, rely=posy, relwidth=width, relheight=height)
