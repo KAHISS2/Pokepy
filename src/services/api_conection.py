@@ -39,7 +39,8 @@ class ApiConnection:
             informations[8].configure(text=f"{pokemon_data["stats"][0]["base_stat"]}")
             informations[9].configure(text=f"{pokemon_data["stats"][3]["base_stat"]}")
             informations[10].configure(text=f"{pokemon_data["stats"][4]["base_stat"]}")
-            informations[11].configure(text=f"Capturar por P$ {(pokemon_data['base_experience'] + pokemon_data['stats'][0]['base_stat'] + pokemon_data['stats'][3]['base_stat']) * 100}")
+            informations[11].configure(text=f"Capturar por P$ {pokemon_data['base_experience'] * 100}")
+            return [pokemon_data["name"], pokemon_data["id"], pokemon_data["types"][0]["type"]["name"]]
         except Exception as e:
             messagebox.showerror("Error", f"Pokemon não encontrado: {e}")
 

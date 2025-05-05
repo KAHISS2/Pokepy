@@ -15,20 +15,20 @@ class DataBase:
         finally:
             return conect
 
-    def searchDatabase(self, query):
+
+    def searchPerPokemons(self, query, treeview):
         conect = self.conectionDatabase()
         cursor = conect.cursor()
         cursor.execute(query)
         res = cursor.fetchall()
         conect.close()
-        return res
+        
+        for i in res:
+            treeview.insert("", "end", values=i)
 
-    def crud(self, sql, execute=0, valores=None):
+    def insertPokemonToDatabase(self, sql):
         conect = self.conectionDatabase()
         cursor = conect.cursor()
-        if execute == 0:
-            cursor.execute(sql)
-        elif execute == 1:
-            cursor.executemany(sql, valores)
+        cursor.execute(sql)
         conect.commit()
         conect.close()

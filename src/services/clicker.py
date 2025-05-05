@@ -1,3 +1,5 @@
+from tkinter import messagebox
+
 class Clicker:
 
     def __init__(self, points, points_per_click, points_per_auto_clicker, auto_click_cost, click_cost, auto_click_level, click_level):
@@ -45,3 +47,14 @@ class Clicker:
             labels[0].configure(text=str(self.points))
             labels[1].configure(text=f"por segundo: {self.auto_click_level}")
             button.configure(text=f"+1 por segundo (P${self.auto_click_cost})")
+
+    def buyPokemon(self, label, button):
+        try:
+            if self.points >= int(button.cget("text").split(" ")[-1].replace("P$", "")):
+                self.points -= int(button.cget("text").split(" ")[-1].replace("P$", ""))
+                label.configure(text=str(self.points))
+                button.configure(text="Comprado")
+            else:
+                messagebox.showerror("Dinheiro insuficiente", "Você não tem pokedollars suficiente para comprar este pokemon")
+        except Exception:
+            messagebox.showerror("Erro", "Pokemon já comprado")

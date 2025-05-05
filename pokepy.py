@@ -4,13 +4,16 @@ from src.services.api_conection import ApiConnection
 from src.services.sound import Sound
 from PIL import Image
 from random import randint
+from src.repository.databaseConnection import DataBase
+from src.repository.query import *
 
 class App(UIComponents):
     def __init__(self):
         # init app ============================================================
-        self.clicker = Clicker(0, 1, 0, 100, 15, 0, 1)
+        self.clicker = Clicker(100000, 1, 0, 15, 100, 0, 1)
         self.api = ApiConnection("https://pokeapi.co/api/v2/pokemon/")
         self.sound = Sound()
+        self.database = DataBase("database/pokedex.db")
         self.sound.musicBackground("assets/sounds/background.mp3")
         self.loadWindow()
         self.clicker.init([
@@ -156,7 +159,20 @@ class App(UIComponents):
         self.pokemon_special_defense = self.labels(screen_container, "---", 0.825, 0.67, 0.15, 0.07, 'gray', '#f0f0f0', size=18)
 
         # buttons ==============================================================
-        self.buy_button = self.button(screen_container, "Capturar por P$", 0.51, 0.78, 0.45, 0.16, background="#e04136", color="#fff", hover_cursor="#333", border_color="#a30000")
+        self.buy_button = self.button(
+            screen_container, "Capturar por P$", 0.51, 0.78, 0.45, 0.16, background="#e04136", color="#fff", hover_cursor="#333", border_color="#a30000", 
+            function=lambda: [
+                    self.clicker.buyPokemon(self.points, self.buy_button),
+                    self.database.insertPokemonToDatabase(
+                        registerPokemon.format(
+                            self.pokemon_name.cget("text").split(" ")[0],
+                            int(self.pokemon_name.cget("text").split(" ")[-1]),
+                            self.pokemon_type.cget("text")
+                        ),
+                    ),
+                    self.database.searchPerPokemons(searchPokemon, self.treeview),
+                ]
+            )
 
         # treeview ==============================================================
         self.treeview = self.treeview(list_container, ["Name", "Number", "Type"])
