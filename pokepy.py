@@ -177,5 +177,8 @@ class App(UIComponents):
         # treeview ==============================================================
         self.treeview = self.treeview(list_container, ["Name", "Number", "Type"])
 
+        # search pokemon ==============================================================
+        self.database.searchPerPokemons(searchPokemon, self.treeview)
+
 if __name__ == "__main__":
     App()
