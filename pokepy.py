@@ -98,7 +98,7 @@ class App(UIComponents):
             function=lambda: [
                 self.sound.soundClick("assets/sounds/click.wav"),
                 self.api.updateDisplay(
-                    str(randint(1, 1000)),
+                    str(randint(1, 1024)),
                     [
                         self.pokemon_image,
                         self.pokemon_name,
@@ -175,7 +175,7 @@ class App(UIComponents):
             )
 
         # treeview ==============================================================
-        self.treeview = self.treeview(list_container, ["Name", "Number", "Type"])
+        self.treeview = self.treeview(list_container, ["ID", "Name", "Number", "Type"])
 
         # search pokemon ==============================================================
         self.database.searchPerPokemons(searchPokemon, self.treeview)

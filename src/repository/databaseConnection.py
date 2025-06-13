@@ -24,7 +24,7 @@ class DataBase:
         conect.close()
         
         for i in res:
-            treeview.insert("", "end", values=i[1:])
+            treeview.insert("", "end", values=i[0:])
 
     def insertPokemonToDatabase(self, sql):
         conect = self.conectionDatabase()
